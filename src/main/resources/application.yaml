@@ -1,0 +1,40 @@
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/books_db
+    username: postgres
+    password: password
+    hikari:
+      schema: app_schema
+      connection-init-sql: create schema if not exists app_schema
+      connection-timeout: 10000
+server:
+  port: 8081
+
+app:
+  redis:
+    enable: true
+  cache:
+    cacheType: redis
+    cacheNames:
+      - books
+      - bookByNameAndAuthor
+      - booksByCategory
+    caches:
+      books:
+        expiry: 10m
+      bookByNameAndAuthor:
+        expiry: 10m
+      booksByCategory:
+        expiry: 10m
